@@ -87,17 +87,19 @@ class solidtorrents(object):
                 self.foundStats = True
                 self.column = -1
 
-            if (self.foundStats and tag == 'div'):
-                self.column = self.column + 1
+            if self.foundStats:
+                if tag == 'div':
+                    self.column = self.column + 1
 
-                if (self.column == 2):
-                    self.parseSize = True
+                    if (self.column == 2):
+                        self.parseSize = True
 
-            if (self.foundStats and tag == 'font' and self.column == 3):
-                self.parseSeeders = True
+                elif tag == 'font':
+                    if self.column == 3:
+                        self.parseSeeders = True
 
-            if (self.foundStats and tag == 'font' and self.column == 4):
-                self.parseLeechers = True
+                    elif self.column == 4:
+                        self.parseLeechers = True
 
             if (self.foundResult and 'dl-magnet' in params.get('class', '') and tag == 'a'):
                 self.torrent_info['link'] = params.get('href')
@@ -137,8 +139,8 @@ class solidtorrents(object):
 
     def request(self, searchTerm, category, page=1):
         return retrieve_url(
-            self.url + '/search?q=' + searchTerm + '&category=' + category
-            + '&sort=seeders&sort=desc&page=' + str(page))
+            f'{self.url}/search?q={searchTerm}&category={category}&sort=seeders&sort=desc&page={str(page)}'
+        )
 
     def search(self, what, cat='all'):
         category = self.supported_categories[cat]
