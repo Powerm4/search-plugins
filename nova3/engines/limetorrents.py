@@ -51,13 +51,17 @@ class limetorrents(object):
             if params.get('class') == 'table2':
                 self.findTable = True
 
-            if tag == self.TR and self.findTable and (params.get('bgcolor') == '#F4F4F4' or params.get('bgcolor') == '#FFFFFF'):  # noqa
+            if (
+                tag == self.TR
+                and self.findTable
+                and params.get('bgcolor') in ['#F4F4F4', '#FFFFFF']
+            ):  # noqa
                 self.inside_tr = True
                 self.current_item = {}
             if not self.inside_tr:
                 return
 
-            if self.inside_tr and tag == self.TD:
+            if tag == self.TD:
                 if "class" in params:
                     self.item_name = self.parser_class.get(params["class"], None)
                     if self.item_name:
@@ -80,7 +84,7 @@ class limetorrents(object):
             if self.inside_tr and self.item_name:
                 if self.item_name == 'size' and (data.endswith('MB') or data.endswith('GB')):
                     self.current_item[self.item_name] = data.strip().replace(',', '')
-                elif not self.item_name == 'size':
+                elif self.item_name != 'size':
                     self.current_item[self.item_name] = data.strip().replace(',', '')
 
                 self.item_name = None
@@ -104,7 +108,7 @@ class limetorrents(object):
         info_page = retrieve_url(info)
         magnet_match = re.search(r"href\s*\=\s*\"(magnet[^\"]+)\"", info_page)
         if magnet_match and magnet_match.groups():
-            print(magnet_match.groups()[0] + " " + info)
+            print(f"{magnet_match.groups()[0]} {info}")
         else:
             raise Exception('Error, please fill a bug report!')
 

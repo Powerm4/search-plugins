@@ -47,7 +47,11 @@ class torrentproject(object):
                 self.insideResults = True
             if tag == 'div' and self.insideResults and 'gac_bb' not in attributes.get('class', ''):
                 self.insideDataDiv = True
-            elif tag == 'span' and self.insideDataDiv and 'verified' != attributes.get('title', ''):
+            elif (
+                tag == 'span'
+                and self.insideDataDiv
+                and attributes.get('title', '') != 'verified'
+            ):
                 self.spanCount += 1
             if self.insideDataDiv and tag == 'a' and len(attrs) > 0:
                 if self.infoMap['torrLink'] == self.spanCount and 'href' in attributes:
@@ -56,25 +60,26 @@ class torrentproject(object):
                     self.singleResData['desc_link'] = self.url + attributes['href']
 
         def handle_endtag(self, tag):
-            if not self.pageComplete:
-                if tag == 'div':
-                    self.insideDataDiv = False
-                    self.spanCount = -1
-                    if len(self.singleResData) > 0:
-                        # ignore trash stuff
-                        if self.singleResData['name'] != '-1' \
-                                and self.singleResData['size'] != '-1' \
-                                and self.singleResData['name'].lower() != 'nome':
-                            # ignore those with link and desc_link equals to -1
-                            if self.singleResData['desc_link'] != '-1' \
-                                    or self.singleResData['link'] != '-1':
-                                try:
-                                    prettyPrinter(self.singleResData)
-                                except Exception:
-                                    print(self.singleResData)
-                                self.pageRes.append(self.singleResData)
-                                self.fullResData.append(self.singleResData)
-                        self.singleResData = self.get_single_data()
+            if self.pageComplete:
+                return
+            if tag == 'div':
+                self.insideDataDiv = False
+                self.spanCount = -1
+                if len(self.singleResData) > 0:
+                    # ignore trash stuff
+                    if self.singleResData['name'] != '-1' \
+                                    and self.singleResData['size'] != '-1' \
+                                    and self.singleResData['name'].lower() != 'nome':
+                        # ignore those with link and desc_link equals to -1
+                        if self.singleResData['desc_link'] != '-1' \
+                                        or self.singleResData['link'] != '-1':
+                            try:
+                                prettyPrinter(self.singleResData)
+                            except Exception:
+                                print(self.singleResData)
+                            self.pageRes.append(self.singleResData)
+                            self.fullResData.append(self.singleResData)
+                    self.singleResData = self.get_single_data()
 
         def handle_data(self, data):
             if self.insideDataDiv:
@@ -114,4 +119,4 @@ class torrentproject(object):
         m = re.search('href=[\'\"].*?(magnet.+?)[\'\"]', html)
         if m and len(m.groups()) > 0:
             magnet = unquote(m.group(1))
-            print(magnet + ' ' + info)
+            print(f'{magnet} {info}')

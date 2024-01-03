@@ -62,15 +62,13 @@ class piratebay(object):
     trackers = '&'.join(urlencode({'tr': tracker}) for tracker in trackers_list)
 
     def search(self, what, cat='all'):
-        base_url = "https://apibay.org/q.php?%s"
-
         # get response json
         what = unquote(what)
         category = self.supported_categories[cat]
         params = {'q': what}
         if category != '0':
             params['cat'] = category
-        response = retrieve_url(base_url % urlencode(params))
+        response = retrieve_url(f"https://apibay.org/q.php?{urlencode(params)}")
         response_json = json.loads(response)
 
         # check empty response
@@ -88,7 +86,7 @@ class piratebay(object):
                 'seeds': result['seeders'],
                 'leech': result['leechers'],
                 'engine_url': self.url,
-                'desc_link': self.url + '/description.php?id=' + result['id']
+                'desc_link': f'{self.url}/description.php?id=' + result['id'],
             }
             prettyPrinter(res)
 

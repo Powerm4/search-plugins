@@ -53,8 +53,8 @@ class torrentscsv(object):
     trackers = '&'.join(urlencode({'tr': tracker}) for tracker in trackers_list)
 
     def search(self, what, cat='all'):
-        search_url = "{}/service/search?size=300&q={}".format(self.url, what)
-        desc_url = "{}/#/search/torrent/{}/1".format(self.url, what)
+        search_url = f"{self.url}/service/search?size=300&q={what}"
+        desc_url = f"{self.url}/#/search/torrent/{what}/1"
 
         # get response json
         response = retrieve_url(search_url)
