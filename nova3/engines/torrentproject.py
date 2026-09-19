@@ -86,11 +86,11 @@ class torrentproject:
                                     date_string = self.singleResData['pub_date']
                                     date = datetime.strptime(date_string, '%Y-%m-%d %H:%M:%S')
                                     self.singleResData['pub_date'] = int(date.timestamp())
-                                except Exception:  # pylint: disable=broad-exception-caught
+                                except Exception:  # pylint: disable=broad-exception-caught # noqa: BLE001
                                     pass
                                 try:
                                     prettyPrinter(self.singleResData)  # type: ignore[arg-type] # refactor later
-                                except Exception:  # pylint: disable=broad-exception-caught
+                                except Exception:  # pylint: disable=broad-exception-caught # noqa: BLE001
                                     print(self.singleResData)
                                 self.pageRes.append(self.singleResData)
                                 self.fullResData.append(self.singleResData)

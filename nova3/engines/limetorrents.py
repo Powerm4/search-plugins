@@ -61,7 +61,7 @@ class limetorrents:
             elif not self.inside_table:
                 return
 
-            if tag == self.TR and (params.get('bgcolor') == '#F4F4F4' or params.get('bgcolor') == '#FFFFFF'):  # noqa
+            if tag == self.TR and (params.get('bgcolor') == '#F4F4F4' or params.get('bgcolor') == '#FFFFFF'):
                 self.inside_tr = True
                 self.column_index = -1
                 self.current_item = {"engine_url": self.url}

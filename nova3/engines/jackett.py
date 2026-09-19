@@ -72,7 +72,7 @@ def _load_configuration() -> None:
     except ValueError:
         # if file exists, but it's malformed we load add a flag
         _CONFIG_DATA['malformed'] = True
-    except Exception:  # pylint: disable=broad-exception-caught
+    except Exception:  # pylint: disable=broad-exception-caught # noqa: BLE001
         # if file doesn't exist, we create it
         _save_configuration()
 
@@ -254,7 +254,7 @@ class jackett:
             try:
                 date = datetime.datetime.strptime(getTextProp(result.find('pubDate')), '%a, %d %b %Y %H:%M:%S %z')
                 res['pub_date'] = int(date.timestamp())
-            except Exception:  # pylint: disable=broad-exception-caught
+            except Exception:  # pylint: disable=broad-exception-caught # noqa: BLE001
                 res['pub_date'] = -1
 
             self.pretty_printer_thread_safe(res)
@@ -273,7 +273,7 @@ class jackett:
             # if the page returns a magnet redirect, used in download_torrent
             if e.code == 302:
                 response = e.url
-        except Exception:  # pylint: disable=broad-exception-caught
+        except Exception:  # pylint: disable=broad-exception-caught # noqa: BLE001
             pass
         return response
 
@@ -287,7 +287,7 @@ class jackett:
             'seeds': -1,
             'leech': -1,
             'engine_url': self.url,
-            'desc_link': 'https://github.com/qbittorrent/search-plugins/wiki/How-to-configure-Jackett-plugin',  # noqa
+            'desc_link': 'https://github.com/qbittorrent/search-plugins/wiki/How-to-configure-Jackett-plugin',
             'pub_date': -1
         })
 

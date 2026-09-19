@@ -42,7 +42,7 @@ from urllib.parse import unquote, urlencode
 import helpers  # for setting SOCKS proxy side-effect
 from novaprinter import prettyPrinter
 
-helpers.htmlentitydecode  # pylint: disable=pointless-statement # dirty workaround to suppress static checkers
+helpers.htmlentitydecode  # pylint: disable=pointless-statement # noqa: B018 # dirty workaround to suppress static checkers
 
 
 class piratebay:
