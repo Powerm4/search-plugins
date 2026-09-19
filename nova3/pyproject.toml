@@ -15,21 +15,18 @@ issues = "https://github.com/qbittorrent/search-plugins/issues"
 [dependency-groups]
 dev = [
     "bandit",
-    "isort",
     "mypy",
     "pycodestyle",
     "pyflakes",
     "pylint",
     "pyright",
     "pytest",
+    "ruff",
     "rust-just",
 ]
 
 [tool.bandit]
 skips = ["B101", "B110", "B310", "B314", "B405"]
-
-[tool.isort]
-line_length = 1000
 
 [tool.mypy]
 mypy_path = "_aux"
@@ -47,3 +44,9 @@ typeCheckingMode = "strict"
 [tool.pytest]
 addopts = ["--showlocals"]
 pythonpath = ["_aux"]
+
+[tool.ruff]
+line-length = 1000
+
+[tool.ruff.lint]
+ignore = ["FA100", "RUF012", "SIM102", "S110"]

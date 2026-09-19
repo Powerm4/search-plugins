@@ -37,14 +37,15 @@ format files='engines/*.py tests/*.py':
         --max-line-length=1000 \
         --statistics \
         {{ files }}
-    isort \
-        {{ files }}
     just \
         --fmt \
         --unstable
 
 # Run static analyzer
 lint files='engines/*.py tests/*.py':
+    ruff \
+        check \
+        {{ files }}
     pyflakes \
         {{ files }}
     bandit \
