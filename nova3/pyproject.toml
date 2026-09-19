@@ -25,6 +25,12 @@ dev = [
     "rust-just",
 ]
 
+[tool.bandit]
+skips = ["B101", "B110", "B310", "B314", "B405"]
+
+[tool.isort]
+line_length = 1000
+
 [tool.mypy]
 mypy_path = "_aux"
 strict = true
@@ -38,5 +44,6 @@ max-line-length = 1000
 extraPaths = ["_aux"]
 typeCheckingMode = "strict"
 
-[tool.pytest.ini_options]
-pythonpath = "_aux"
+[tool.pytest]
+addopts = ["--showlocals"]
+pythonpath = ["_aux"]
