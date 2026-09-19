@@ -298,7 +298,7 @@ class jackett:
 
     def escape_pipe(self, dictionary: Dict[str, Any]) -> Dict[str, Any]:
         # Safety measure until it's fixed in prettyPrinter
-        for key in dictionary.keys():
-            if isinstance(dictionary[key], str):
-                dictionary[key] = dictionary[key].replace('|', '%7C')
+        for (key, value) in dictionary.items():
+            if isinstance(value, str):
+                dictionary[key] = value.replace('|', '%7C')
         return dictionary
