@@ -67,8 +67,7 @@ class eztv:
 
         def handle_data(self, data: str) -> None:
             data = data.replace(',', '')
-            if (self.in_table_row
-                    and (data.endswith(' KB') or data.endswith(' MB') or data.endswith(' GB'))):
+            if self.in_table_row and data.endswith((' KB', ' MB', ' GB')):
                 self.current_item['size'] = data
 
             elif self.in_table_row and data.isnumeric():
