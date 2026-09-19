@@ -56,9 +56,8 @@ class torlock:
                 link = params.get("href")
                 if link is not None:
                     if link.startswith("/torrent"):
-                        self.current_item["desc_link"] = "".join((self.url, link))
-                        self.current_item["link"] = "".join((self.url, "/tor/",
-                                                             link.split('/')[2], ".torrent"))
+                        self.current_item["desc_link"] = f"{self.url}{link}"
+                        self.current_item["link"] = f"{self.url}/tor/{link.split('/')[2]}.torrent"
                         self.current_item["engine_url"] = self.url
                         self.item_found = True
                         self.item_name = "name"

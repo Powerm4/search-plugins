@@ -260,7 +260,7 @@ class jackett:
             self.pretty_printer_thread_safe(res)
 
     def generate_xpath(self, tag: str) -> str:
-        return './{http://torznab.com/schemas/2015/feed}attr[@name="%s"]' % tag
+        return f'./{{http://torznab.com/schemas/2015/feed}}attr[@name="{tag}"]'
 
     def get_response(self, query: str) -> Union[str, None]:
         response = None
