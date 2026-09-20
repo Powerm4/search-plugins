@@ -82,13 +82,13 @@ class torlock:
                 self.item_found = False
                 if not self.item_bad:
                     try:
-                        # Date seems like it can be Today, Yesterday, or M/D/YYYY (Timezone unknown)
+                        # Date seems like it can be Today, Yesterday, or M/D/YYYY (local timezone)
                         if self.current_item["pub_date"] == "Today":
-                            date = datetime.now()
+                            date = datetime.now().astimezone()
                         elif self.current_item["pub_date"] == "Yesterday":
-                            date = datetime.now() - timedelta(days=1)
+                            date = datetime.now().astimezone() - timedelta(days=1)
                         else:
-                            date = datetime.strptime(self.current_item["pub_date"], '%m/%d/%Y')
+                            date = datetime.strptime(self.current_item["pub_date"], '%m/%d/%Y').astimezone()
                         date = date.replace(hour=0, minute=0, second=0, microsecond=0)
                         self.current_item["pub_date"] = int(date.timestamp())
                     except Exception:  # pylint: disable=broad-exception-caught # noqa: BLE001

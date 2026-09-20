@@ -99,7 +99,7 @@ def _getBrowserUserAgent() -> str:
     baseDate = datetime.date(2024, 4, 16)
     baseVersion = 125
 
-    nowDate = datetime.date.today()
+    nowDate = datetime.datetime.now(datetime.timezone.utc).date()
     nowVersion = baseVersion + ((nowDate - baseDate).days // 30)
 
     return f"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:{nowVersion}.0) Gecko/20100101 Firefox/{nowVersion}.0"

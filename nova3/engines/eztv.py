@@ -28,7 +28,7 @@ class eztv:
             HTMLParser.__init__(self)
             self.url = url
 
-            now = datetime.now()
+            now = datetime.now().astimezone()
             self.date_parsers: Mapping[str, Callable[[Match[str]], datetime]] = {
                 r"(\d+)h\s+(\d+)m": lambda m: now - timedelta(hours=int(m[1]), minutes=int(m[2])),
                 r"(\d+)d\s+(\d+)h": lambda m: now - timedelta(days=int(m[1]), hours=int(m[2])),

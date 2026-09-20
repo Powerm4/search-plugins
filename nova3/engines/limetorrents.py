@@ -42,7 +42,7 @@ class limetorrents:
             self.column_name: Union[str, None] = None  # key's name in current_item dict
             self.columns = ["name", "pub_date", "size", "seeds", "leech"]
 
-            now = datetime.now()
+            now = datetime.now().astimezone()
             self.date_parsers: Mapping[str, Callable[[Match[str]], datetime]] = {
                 r"yesterday": lambda m: now - timedelta(days=1),
                 r"last\s+month": lambda m: now - timedelta(days=30),

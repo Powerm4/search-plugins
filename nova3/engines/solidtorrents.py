@@ -114,7 +114,6 @@ class solidtorrents:
                 self.totalResults += 1
 
         def handle_data(self, data: str) -> None:
-
             if self.parseTitle:
                 if (bool(data.strip()) and data != '\n'):
                     self.torrent_info['name'] = data
@@ -139,7 +138,7 @@ class solidtorrents:
                     months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun',
                               'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
                     [month, day, year] = data.replace(',', '').lower().split()
-                    date = datetime(int(year), int(months.index(month) + 1), int(day))
+                    date = datetime(int(year), int(months.index(month) + 1), int(day)).astimezone()
                     self.torrent_info['pub_date'] = int(date.timestamp())
                 except Exception:  # pylint: disable=broad-exception-caught # noqa: BLE001
                     self.torrent_info['pub_date'] = -1
