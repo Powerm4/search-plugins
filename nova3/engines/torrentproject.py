@@ -1,4 +1,4 @@
-# VERSION: 1.91
+# VERSION: 1.92
 # AUTHORS: mauricci
 
 import re
